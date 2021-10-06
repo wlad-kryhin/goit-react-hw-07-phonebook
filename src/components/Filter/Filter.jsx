@@ -1,6 +1,6 @@
 // import PropTypes from "prop-types";
 import s from "./Filter.module.css";
-import action from "../../redux/action";
+import * as action from "../../redux/action";
 import { useSelector, useDispatch } from "react-redux";
 import { getFilterValue } from "../../redux/selectors";
 export default function Filter() {

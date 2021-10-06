@@ -1,12 +1,17 @@
 // import PropTypes from "prop-types";
 import s from "./PhoneList.module.css";
-import action from "../../redux/action";
+// import * as action from "../../redux/action";
+import { deleteContact, fetchItems } from "../../redux/operation";
 import { useDispatch, useSelector } from "react-redux";
 import { getList } from "../../redux/selectors";
+import { useEffect } from "react";
 export default function PhoneList() {
   const dispatch = useDispatch();
   const list = useSelector(getList);
-  const onDelete = (id) => dispatch(action.deleteItem(id));
+  const onDelete = (id) => dispatch(deleteContact(id));
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, []);
   return (
     <ul className={s.list}>
       {list.map(({ id, name, tel }) => {

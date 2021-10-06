@@ -1,7 +1,8 @@
 import { useState } from "react";
 // import PropTypes from "prop-types";
 import s from "./ContactForm.module.css";
-import action from "../../redux/action";
+// import * as action from "../../redux/action";
+import { addContacts } from "../../redux/operation";
 import { useDispatch } from "react-redux";
 
 export default function ContactForm() {
@@ -18,7 +19,7 @@ export default function ContactForm() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    dispatch(action.addItem({ name, tel }));
+    dispatch(addContacts({ name, tel }));
     // event.target.reset();
     setName("");
     setTel("");

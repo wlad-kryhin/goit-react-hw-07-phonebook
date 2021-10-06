@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
 import { createReducer } from "@reduxjs/toolkit";
-import actions from "./action";
+import * as actions from "./action";
 const items = createReducer([], {
-  [actions.addItem]: (state, { payload }) => {
+  [actions.fetchItemsSuccess]: (_, { payload }) => payload,
+  [actions.addItemsSuccess]: (state, { payload }) => {
     if (
       state.find(
         (contact) => contact.name.toLowerCase() === payload.name.toLowerCase(),
@@ -15,13 +16,28 @@ const items = createReducer([], {
       return [...state, payload];
     }
   },
-  [actions.deleteItem]: (state, { payload }) =>
+  [actions.deleteItemsSuccess]: (state, { payload }) =>
     state.filter((item) => item.id !== payload),
 });
 
 const filter = createReducer("", {
   [actions.changeFilter]: (_, { payload }) => payload,
 });
+// const entities = createReducer([], {
+//   [actions.fetchItemsSuccess]: (_, action) => action.payload,
+// });
+const isLoading = createReducer(false, {
+  [actions.addItemsRequest]: () => true,
+  [actions.addItemsSuccess]: () => false,
+  [actions.addItemsError]: () => false,
+  [actions.deleteItemsRequest]: () => true,
+  [actions.deleteItemsSuccess]: () => false,
+  [actions.deleteItemsError]: () => false,
+});
+// export default combineReducers({
+//   entities,
+//   isLoading
+// })
 // const items = (state = [], { type, payload }) => {
 //   switch (type) {
 //     case actionTypes.ADD:
@@ -56,4 +72,5 @@ const filter = createReducer("", {
 export default combineReducers({
   items,
   filter,
+  isLoading,
 });
